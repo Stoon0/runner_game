@@ -1,2 +1,2 @@
 # runner_game
-Runner with obstacls
+Runner with obstacls.
