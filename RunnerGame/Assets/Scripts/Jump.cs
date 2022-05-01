@@ -7,6 +7,7 @@ public class Jump : MonoBehaviour
     public Vector2 jumpHeight;
     public Animator animator;
     public GameObject ground;
+    public GameObject entityDestroyer;
     private bool touchingObject = false;
 
 
@@ -46,6 +47,10 @@ public class Jump : MonoBehaviour
         {
             animator.SetBool("IsJumping", false);
             touchingObject = true;
+        }
+        if (collision.gameObject.name == entityDestroyer.name)
+        {
+            FindObjectOfType<GameManager>().GameOver();
         }
     }
 

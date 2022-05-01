@@ -24,6 +24,7 @@ public class ObstacleMovement : MonoBehaviour
     {
         if (collision.gameObject.name == entityDestroyer.name)
         {
+            FindObjectOfType<Score>().score++;
             Object.Destroy(gameObject);
         }
     }
