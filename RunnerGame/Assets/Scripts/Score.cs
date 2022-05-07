@@ -11,4 +11,11 @@ public class Score : MonoBehaviour
     {
         scoreText.text = score.ToString();
     }
+
+    // Increase score
+    public void increaseScore(int increaseBy = 1)
+    {
+        score = score + increaseBy;
+        FindObjectOfType<GameManager>().updateGameSpeed(score);
+    }
 }

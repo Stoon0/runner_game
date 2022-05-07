@@ -1,23 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Jump : MonoBehaviour
+public class PlayerSkript : MonoBehaviour
 {
     public Vector2 jumpHeight;
     public Animator animator;
-    public GameObject ground;
-    public GameObject entityDestroyer;
+    private GameObject ground;
+    private GameObject entityDestroyer;
     private bool touchingObject = false;
 
 
-    // Start is called before the first frame update
+    // Start
     void Start()
     {
-        
+        entityDestroyer = GameObject.Find("EntityDestroyer");
+        ground = GameObject.Find("Ground");
     }
 
-    // Update is called once per frame
+    // Update
     void Update()
     {
         if (touchingObject && Input.GetButtonDown("Jump"))  //makes player jump
@@ -32,11 +31,23 @@ public class Jump : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = 20;
             animator.SetBool("IsSneaking", true);
         }
-        else if(Input.GetButtonUp("Crouch"))
+        else if (Input.GetButtonUp("Crouch"))
         {
             GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.4f);
             GetComponent<Rigidbody2D>().gravityScale = 10;
             animator.SetBool("IsSneaking", false);
+        }
+    }
+
+    // Used for bonus items
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // On hit of bonus get boost
+        if (collision.gameObject.tag == "Bonus")
+        {
+            FindObjectOfType<Score>().increaseScore(5);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(2, 0), ForceMode2D.Impulse);
+            Object.Destroy(collision.gameObject);
         }
     }
 
@@ -51,6 +62,11 @@ public class Jump : MonoBehaviour
         if (collision.gameObject.name == entityDestroyer.name)
         {
             FindObjectOfType<GameManager>().GameOver();
+        }
+        // On hit of enemy run slower
+        if (collision.gameObject.tag == "Enemy")
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(-3, 0), ForceMode2D.Impulse);
         }
     }
 
