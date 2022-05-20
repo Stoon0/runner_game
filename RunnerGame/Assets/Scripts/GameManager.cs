@@ -4,9 +4,26 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public float restartDelay = 1f;
     public Text gameOverText;
+    public Button restartGameButton;
     private float gameSpeed = 1;
+    private GameObject backGround;
+    private Material material;
+
+    // Start
+    private void Start()
+    {
+        restartGameButton.gameObject.SetActive(false);
+        backGround = GameObject.Find("BackGround");
+        material = backGround.GetComponent<Renderer>().material;
+    }
+
+    // Update
+    private void Update()
+    {
+        Vector2 offset = new Vector2(Time.time * 0.3f, 0);
+        material.mainTextureOffset = offset;
+    }
 
     // Getter for gamepseed
     public float getGameSpeed()
@@ -23,10 +40,10 @@ public class GameManager : MonoBehaviour
     // Gameover script
     public void GameOver()
     {
-        Debug.Log("GameOver");
-
         gameOverText.text = "Game Over";
-        Invoke("Restart", restartDelay);
+        restartGameButton.gameObject.SetActive(true);
+        restartGameButton.onClick.AddListener(() => Restart());
+
     }
 
     // Restart the scene

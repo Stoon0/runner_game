@@ -66,7 +66,7 @@ public class PlayerSkript : MonoBehaviour
         // On hit of enemy run slower
         if (collision.gameObject.tag == "Enemy")
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(-3, 0), ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(-5, 0), ForceMode2D.Impulse);
         }
     }
 

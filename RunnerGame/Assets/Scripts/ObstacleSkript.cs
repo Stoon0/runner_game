@@ -20,7 +20,7 @@ public class ObstacleSkript : MonoBehaviour
 
     // Used for bonus items
     private void OnTriggerEnter2D(Collider2D collision)
-    { 
+    {
         // On hit of bonus get boost
         if (gameObject.tag == "Bonus" && collision.gameObject.name == entityDestroyer.name)
         {
@@ -33,7 +33,10 @@ public class ObstacleSkript : MonoBehaviour
     {
         if (collision.gameObject.name == entityDestroyer.name)
         {
-            FindObjectOfType<Score>().increaseScore();
+            if (!FindObjectOfType<GameManager>().restartGameButton.gameObject.activeSelf)
+            {
+                FindObjectOfType<Score>().increaseScore();
+            }
             Object.Destroy(gameObject);
         }
     }
