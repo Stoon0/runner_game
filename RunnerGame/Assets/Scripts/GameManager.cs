@@ -7,22 +7,25 @@ public class GameManager : MonoBehaviour
     public Text gameOverText;
     public Button restartGameButton;
     private float gameSpeed = 1;
-    private GameObject backGround;
-    private Material material;
+    private Material materialBackGround;
+    private Material materialGround;
 
     // Start
     private void Start()
     {
         restartGameButton.gameObject.SetActive(false);
-        backGround = GameObject.Find("BackGround");
-        material = backGround.GetComponent<Renderer>().material;
+        materialBackGround = GameObject.Find("BackGround").GetComponent<Renderer>().material;
+        materialGround = GameObject.Find("Ground").GetComponent<Renderer>().material;
     }
 
     // Update
     private void Update()
     {
         Vector2 offset = new Vector2(Time.time * 0.3f, 0);
-        material.mainTextureOffset = offset;
+        materialBackGround.mainTextureOffset = offset;
+
+        Vector2 offsetGround = new Vector2(Time.deltaTime * (this.gameSpeed / 3.35f), 0);
+        materialGround.mainTextureOffset += offsetGround;
     }
 
     // Getter for gamepseed
