@@ -7,11 +7,15 @@ public class PlayerSkript : MonoBehaviour
     private GameObject ground;
     private GameObject entityDestroyer;
     private bool touchingObject = false;
+    private Vector2 boxColliderSize;
+    private Vector2 boxColliderOffset;
 
 
     // Start
     void Start()
     {
+        boxColliderSize = GetComponent<BoxCollider2D>().size;
+        boxColliderOffset = GetComponent<BoxCollider2D>().offset;
         entityDestroyer = GameObject.Find("EntityDestroyer");
         ground = GameObject.Find("Ground");
     }
@@ -27,13 +31,15 @@ public class PlayerSkript : MonoBehaviour
         if (Input.GetButtonDown("Crouch"))  //makes player sneak
         {
             animator.SetBool("IsJumping", false);
-            GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.2f);
+            GetComponent<BoxCollider2D>().size = new Vector2(boxColliderSize.x, boxColliderSize.y - 4);
+            GetComponent<BoxCollider2D>().offset = new Vector2(boxColliderOffset.x, boxColliderOffset.y - 2);
             GetComponent<Rigidbody2D>().gravityScale = 20;
             animator.SetBool("IsSneaking", true);
         }
         else if (Input.GetButtonUp("Crouch"))
         {
-            GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.4f);
+            GetComponent<BoxCollider2D>().size = boxColliderSize;
+            GetComponent<BoxCollider2D>().offset = boxColliderOffset;
             GetComponent<Rigidbody2D>().gravityScale = 10;
             animator.SetBool("IsSneaking", false);
         }
