@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject characterMan;
+    public GameObject characterWoman;
+    public Vector2 spawnPoint;
     public Text gameOverText;
     public Button restartGameButton;
     private float gameSpeed = 1;
@@ -13,6 +16,15 @@ public class GameManager : MonoBehaviour
     // Start
     private void Start()
     {
+        if (PlayerData.Character == "man")
+        {
+            Instantiate(characterMan, spawnPoint, Quaternion.identity);
+        }
+        if (PlayerData.Character == "woman")
+        {
+            Instantiate(characterWoman, spawnPoint, Quaternion.identity);
+        }
+        Debug.Log(PlayerData.Character);
         restartGameButton.gameObject.SetActive(false);
         materialBackGround = GameObject.Find("BackGround").GetComponent<Renderer>().material;
         materialGround = GameObject.Find("Ground").GetComponent<Renderer>().material;
@@ -37,7 +49,7 @@ public class GameManager : MonoBehaviour
     // Update game speed
     public void updateGameSpeed(float score)
     {
-        this.gameSpeed = 1 + (score / 100);
+        this.gameSpeed = 1 + (score / 200);
     }
 
     // Gameover script
@@ -46,7 +58,6 @@ public class GameManager : MonoBehaviour
         gameOverText.text = "Game Over";
         restartGameButton.gameObject.SetActive(true);
         restartGameButton.onClick.AddListener(() => Restart());
-
     }
 
     // Restart the scene
@@ -54,4 +65,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+}
+
+// Static class to pass data
+public static class PlayerData
+{
+    public static string Character { get; set; }
 }
