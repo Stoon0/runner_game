@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Vector2 spawnPoint;
     public Text gameOverText;
     public Button restartGameButton;
+    public GameObject character = null;
     private float gameSpeed = 1;
     private Material materialBackGround;
     private Material materialGround;
@@ -19,12 +20,13 @@ public class GameManager : MonoBehaviour
         if (PlayerData.Character == "man")
         {
             Instantiate(characterMan, spawnPoint, Quaternion.identity);
+            character = characterMan;
         }
         if (PlayerData.Character == "woman")
         {
             Instantiate(characterWoman, spawnPoint, Quaternion.identity);
+            character = characterWoman;
         }
-        Debug.Log(PlayerData.Character);
         restartGameButton.gameObject.SetActive(false);
         materialBackGround = GameObject.Find("BackGround").GetComponent<Renderer>().material;
         materialGround = GameObject.Find("Ground").GetComponent<Renderer>().material;

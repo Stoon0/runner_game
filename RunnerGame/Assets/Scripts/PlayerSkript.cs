@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerSkript : MonoBehaviour
 {
@@ -23,12 +24,12 @@ public class PlayerSkript : MonoBehaviour
     // Update
     void Update()
     {
-        if (touchingObject && Input.GetButtonDown("Jump"))  //makes player jump
+        if (touchingObject && CrossPlatformInputManager.GetButtonDown("Jump"))  //makes player jump
         {
             GetComponent<Rigidbody2D>().AddForce(jumpHeight, ForceMode2D.Impulse);
             animator.SetBool("IsJumping", true);
         }
-        if (Input.GetButtonDown("Crouch"))  //makes player sneak
+        if (CrossPlatformInputManager.GetButtonDown("Crouch"))  //makes player sneak
         {
             animator.SetBool("IsJumping", false);
             GetComponent<BoxCollider2D>().size = new Vector2(boxColliderSize.x, boxColliderSize.y - 4);
@@ -36,7 +37,7 @@ public class PlayerSkript : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = 20;
             animator.SetBool("IsSneaking", true);
         }
-        else if (Input.GetButtonUp("Crouch"))
+        else if (CrossPlatformInputManager.GetButtonUp("Crouch"))
         {
             GetComponent<BoxCollider2D>().size = boxColliderSize;
             GetComponent<BoxCollider2D>().offset = boxColliderOffset;
