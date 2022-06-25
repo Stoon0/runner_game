@@ -4,12 +4,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject characterMan;
-    public GameObject characterWoman;
+    public GameObject playerMan;
+    public GameObject playerWoman;
     public Vector2 spawnPoint;
     public Text gameOverText;
-    public Button restartGameButton;
-    public GameObject character = null;
+    public Button restartGameButton, backToMainMenuButton;
     private float gameSpeed = 1;
     private Material materialBackGround;
     private Material materialGround;
@@ -19,15 +18,14 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerData.Character == "man")
         {
-            Instantiate(characterMan, spawnPoint, Quaternion.identity);
-            character = characterMan;
+            Instantiate(playerMan, spawnPoint, Quaternion.identity);
         }
         if (PlayerData.Character == "woman")
         {
-            Instantiate(characterWoman, spawnPoint, Quaternion.identity);
-            character = characterWoman;
+            Instantiate(playerWoman, spawnPoint, Quaternion.identity);
         }
         restartGameButton.gameObject.SetActive(false);
+        backToMainMenuButton.gameObject.SetActive(false);
         materialBackGround = GameObject.Find("BackGround").GetComponent<Renderer>().material;
         materialGround = GameObject.Find("Ground").GetComponent<Renderer>().material;
     }
@@ -60,6 +58,8 @@ public class GameManager : MonoBehaviour
         gameOverText.text = "Game Over";
         restartGameButton.gameObject.SetActive(true);
         restartGameButton.onClick.AddListener(() => Restart());
+        backToMainMenuButton.gameObject.SetActive(true);
+        backToMainMenuButton.onClick.AddListener(() => SceneManager.LoadScene("StartScreen"));
     }
 
     // Restart the scene
