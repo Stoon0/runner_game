@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update game speed
-    public void updateGameSpeed(float score)
+    public void updateGameSpeed(int score)
     {
         this.gameSpeed = 1 + (score / 200);
     }

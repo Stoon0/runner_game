@@ -33,10 +33,7 @@ public class ObstacleSkript : MonoBehaviour
     {
         if (collision.gameObject.name == entityDestroyer.name)
         {
-            if (!FindObjectOfType<GameManager>().restartGameButton.gameObject.activeSelf)
-            {
-                FindObjectOfType<Score>().increaseScore();
-            }
+            FindObjectOfType<Score>().increaseScore();
             Object.Destroy(gameObject);
         }
     }
